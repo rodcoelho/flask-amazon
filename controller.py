@@ -2,7 +2,7 @@
 
 from random import randint
 
-from flask import Flask, render_template, request, make_response, session
+from flask import Flask, render_template, request, session
 app = Flask(__name__)
 
 import sqlite3
@@ -16,7 +16,15 @@ cursor = connection.cursor()
 def index():
     h1 = 'Home'
     title = 'Flask-Amazon'
-    return render_template('index.html',h1=h1,title=title)
+    # if bool(session['cart']):
+    #     cost = 0
+    #     temp = session['cart']
+    #     for _ in temp:
+    #         p_q = int(_[1])*int(_[2])
+    #         cost += p_q
+    #     return render_template('index.html', h1=h1, title=title,
+    #                            cost=cost, items=session['cart'])
+    return render_template('index.html', h1=h1, title=title)
 
 
 @app.route('/lookup', methods=["GET", "POST"])
@@ -24,19 +32,25 @@ def lookup():
     h1 = 'Results'
     title = 'Flask-Amazon'
     item = request.form['item']
-    # session[item] = [quantity, price]
-    session[item] = [request.form['quantity'],randint(1, 100)]
-    cost = int(session[item][0]) * int(session[item][1])
-    return render_template('lookup.html', h1=h1, title=title, item=item,
-                           quantity=session[item][0], price=session[item][1], cost=cost)
+    # session[temp_cart] = [item, quantity, price, url]
+    price = randint(1, 100)
+    session['temp_cart'] = [item, 0, price, '']
+    return render_template('lookup.html', h1=h1, title=title, item=item, price=price)
 
 
 @app.route('/addtocart', methods=["GET", "POST"])
 def addtocart():
-    h1 = 'Added to Cart'
+    h1 = 'Item Info'
     title = 'Flask-Amazon'
     username = 'rodrigo'
-    return render_template('index.html',h1=h1,title=title)
+    quantity = request.form['quantity']
+    temp = session['temp_cart']
+    temp[1] = quantity
+    session['temp_cart'] = temp
+    # session[temp_cart] = [item, quantity, price, url]
+    orm.add_session_to_cart(username, session['temp_cart'])
+    return render_template('addtocart.html', h1=h1, title=title, quantity=quantity,
+                           item=session['temp_cart'][0])
 
 
 @app.route('/cart', methods=["GET", "POST"])

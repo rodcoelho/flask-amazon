@@ -3,16 +3,11 @@
 <br><br>
 
         <p></p>
-            <!--<form action="/buy" method="POST">-->
-                      <!--Buy - Symbol <input type="text" name="symbol">-->
-                      <!--Quantity <input type="text" name="quantity">-->
-                      <!--<input type="submit" value="Buy">-->
-            <!--</form>-->
+
         <p></p>
 
                 <form action="/lookup" method="POST">Look Up Product:
                       <input type="text" name="item">
-                      Quantity  <input type="text" name="quantity">
                       <input type="submit" value="Look Up">
                 </form>
         <p></p>
@@ -28,9 +23,7 @@ Your cart is empty!<br>
 <ul>
     {% for item, quantity,price,picture in items %}
         <li>Item: {{ item }} Quantity: {{ quantity }} Price: {{ price}}</li>
-        <br>
         {{ picture }}
-        <br><br>
     {% endfor %}
 </ul>
 {% endif %}

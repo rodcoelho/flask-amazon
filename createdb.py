@@ -15,9 +15,11 @@ cursor.execute("""
 CREATE TABLE cart(
 pk INTEGER,
 userID INTEGER,
+price INTEGER,
 item VARCHAR(32),
 url VARCHAR,
 quantity INTEGER,
+zero_or_one INTEGER,
 FOREIGN KEY(userID) REFERENCES users(pk),
 PRIMARY KEY(pk))
 ;""")
