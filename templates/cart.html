@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+
+Cart:
+<br><br>
+
+{% if cost %}
+Your cart is will cost: {{ cost }}<br>
+{% else %}
+Your cart is empty!<br>
+{% endif %}
+
+{% if items %}
+<ul>
+    {% for item, quantity,price,picture in items %}
+        <li>Item: {{ item }} Quantity: {{ quantity }} Price: {{ price}}</li>
+        <br>
+        {{ picture }}
+        <br><br>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}
