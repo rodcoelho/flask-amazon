@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-            <a href="cart">Cart</a>
+<br><br>
+
         <p></p>
             <!--<form action="/buy" method="POST">-->
                       <!--Buy - Symbol <input type="text" name="symbol">-->
@@ -11,8 +12,26 @@
 
                 <form action="/lookup" method="POST">Look Up Product:
                       <input type="text" name="item">
+                      Quantity  <input type="text" name="quantity">
                       <input type="submit" value="Look Up">
                 </form>
         <p></p>
 
+
+{% if cost %}
+Your cart is will cost: {{ cost }}<br>
+{% else %}
+Your cart is empty!<br>
+{% endif %}
+
+{% if items %}
+<ul>
+    {% for item, quantity,price,picture in items %}
+        <li>Item: {{ item }} Quantity: {{ quantity }} Price: {{ price}}</li>
+        <br>
+        {{ picture }}
+        <br><br>
+    {% endfor %}
+</ul>
+{% endif %}
 {% endblock %}

@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{{ item }} costs {{ price }}
+<br>
+Would you like to add {{ quantity }} {{ item }} these to your cart?:
+<form action="/addtocart" method="POST">
+    <input type="submit" value="Yes">
+</form>
 
+<form action="/" method="POST">
+    <input type="submit" value="No">
+</form>
+
+{{ quantity }} {{ item }} will cost {{ cost }}
 
 {% endblock %}
