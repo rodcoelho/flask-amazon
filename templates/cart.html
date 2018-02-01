@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
-Cart:
-<br><br>
+
+{% if items %}
+<ul>
+    {% for item, price, quote, quantity in items %}
+        <li><p>Item      : {{ item }}
+            <br>Quantity : {{ quantity }}
+            <br>Price    : ${{ price }}.00</br>
+            <!--<br><IMG SRC="static/tenor.gif" ALT="joey diaz" WIDTH=72 HEIGHT=72>-->
+        </li>
+
+
+        <br>
+
+    {% endfor %}
+</ul>
+{% endif %}
+
 
 {% if cost %}
 Your cart is will cost: {{ cost }}<br>
@@ -10,15 +25,7 @@ Your cart is will cost: {{ cost }}<br>
 Your cart is empty!<br>
 {% endif %}
 
-{% if items %}
-<ul>
-    {% for item, quantity,price,picture in items %}
-        <li>Item: {{ item }} Quantity: {{ quantity }} Price: {{ price}}</li>
-        <br>
-        {{ picture }}
-        <br><br>
-    {% endfor %}
-</ul>
-{% endif %}
+<br>
+<a href="checkout">Checkout</a>
 
 {% endblock %}

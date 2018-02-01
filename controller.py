@@ -58,8 +58,36 @@ def cart():
     h1 = 'Cart'
     title = 'Flask-Amazon'
     username = 'rodrigo'
-    return render_template('cart.html',h1=h1,title=title)
+    cart_list = orm.get_all_cart_items(username)
+    cost = 0
+    for _ in cart_list:
+        p_q = int(_[1]) * int(_[3])
+        cost+= p_q
+    return render_template('cart.html', h1=h1, title=title, cost=cost,
+                           items=cart_list)
 
+
+@app.route('/checkout', methods=["GET", "POST"])
+def checkout():
+    h1 = 'Checkout'
+    title = 'Flask-Amazon'
+    username = 'rodrigo'
+    orm.add_cart_to_transaction(username)
+    orm.set_cart_items_to_zero(username)
+    return render_template('checkout.html', h1=h1, title=title)
+
+# @app.route('/delete', methods=["GET", "POST"])
+# def delete():
+#     h1 = 'Deleted Item'
+#     title = 'Flask-Amazon'
+#     username = 'rodrigo'
+#     cart_list = orm.get_all_cart_items(username)
+#     cost = 0
+#     for _ in cart_list:
+#         p_q = int(_[1]) * int(_[3])
+#         cost+= p_q
+#     return render_template('delete.html', h1=h1, title=title, cost=cost,
+#                            items=cart_list)
 
 app.secret_key = 'poop'
 
